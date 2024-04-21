@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {RouterProvider} from 'react-router-dom'
+import { router } from './routes';
+import { AuthContext } from './context/Authcontext';
+//import { useUser } from './Hooks/useUser';
+
+const checkUser=()=>{
+
+ console.log("login check",localStorage.getItem('isLoggedin'))
+
+  if(localStorage.getItem('isLoggedin')==='true'){
+    return true
+  }else{
+    return false 
+  }
+}
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+
+    <AuthContext.Provider value={checkUser}>
+
+    <RouterProvider router={router}/>
+    </AuthContext.Provider>
+
   </React.StrictMode>
 );
 
